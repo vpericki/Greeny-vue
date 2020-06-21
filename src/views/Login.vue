@@ -3,19 +3,8 @@
     <v-card class="card">
         <v-form v-model="valid">
             <v-layout column class="center">
-              <v-flex
-                xs12
-                md4
-              >
-                <h1>Register</h1>
 
-                <v-text-field
-                  v-model="username"
-                  :rules="usernameRules"
-                  label="Username"
-                  required
-                ></v-text-field>
-              </v-flex>
+              <h1>Login</h1>
 
               <v-flex
                 xs12
@@ -43,21 +32,15 @@
 
               </v-flex>
 
+
               <v-flex
                 xs12
                 md4
               >
-                <v-text-field
-                  type="password"
-                  v-model="repeatPassword"
-                  :rules="passwordConfirmationRule"
-                  label="Repeat password"
-                  required
-                ></v-text-field>
-
+                <span>{{ error }}</span>
               </v-flex>
               <v-flex xs12 md4>
-                <v-btn @click="submit">Register</v-btn>
+                <v-btn @click="submit">Login</v-btn>
               </v-flex>
             </v-layout>
         </v-form>
@@ -67,17 +50,13 @@
 
 <script lang="ts">
   import Vue from 'vue'
+  import router from '../router'
 
   export default Vue.extend({
-    name: 'Register',
+    name: 'Login',
 
     data: () => ({
       valid: false,
-      username: '',
-      usernameRules: [
-        (v: string) => !!v || 'Name is required',
-        (v: string) => v.length <= 10 || 'Name must be less than 10 characters'
-      ],
       email: '',
       emailRules: [
         (v: string) => !!v || 'E-mail is required',
@@ -86,27 +65,40 @@
       password: '',
       passwordRules: [
         (v: string) => !!v || 'Password is required',
-        (v: string) => v.length > 6 || 'Password must be longer than 6 characters'
       ],
-      repeatPassword: '',
+      error: ''
       
 
     }),
     computed: {
-      passwordConfirmationRule() {
-        return [
-          () => (this.password === this.repeatPassword) || 'Passwords must match',
-          (v: string) => !!v || 'Please reenter your'
-        ]
+      isLoggedIn() {
+        console.log(this.$store.getters.isLoggedIn);
+        
+        return this.$store.getters.isLoggedIn
       }
     },
 
     methods: {
       submit() {
-        console.log("clicked submit");
+        
+        const user = {
+          email: this.email,
+          password: this.password,
+        }
+
+        this.$store.dispatch('login', user)
+          .then(() => {
+            if(this.isLoggedIn) {
+              router.push({name: "Dashboard"})
+            } else {
+              this.error = "Wrong credentials"
+            }
+          })
+        
         
       }
-    }
+    },
+
   })
 </script>
 

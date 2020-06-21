@@ -30,13 +30,27 @@
 
       <v-spacer></v-spacer>
 
+
       <div>
+
+        <router-link to="/login">
+          <v-btn text>
+            <span class="mr-2">Login</span>
+          </v-btn>
+        </router-link>
+
         <router-link to="/register">
-        <v-btn
-        text
-      >
-        <span class="mr-2">Register</span>
-      </v-btn></router-link>
+          <v-btn text>
+            <span class="mr-2">Register</span>
+          </v-btn>
+        </router-link>
+
+
+        <v-btn text @click="logout">
+          <span class="mr-2">Logout</span>
+        </v-btn>
+
+
 
 
       </div>
@@ -46,13 +60,23 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
+import Vue from 'vue'
+import router from '../router'
 
   export default Vue.extend({
     name: 'Navbar',
 
     data: () => ({
     }),
+
+    methods: {
+      logout() {
+        this.$store.dispatch('logout')
+          .then(() => {
+            router.push({name: "Home"})
+          })
+      }
+    }
   })
 </script>
 
