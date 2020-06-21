@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="limit-width" data-aos="fade-up">
+  <v-container fluid class="limit-width vld-parent" data-aos="fade-up">
     <v-card class="card">
         <v-form v-model="valid">
             <v-layout column class="center">
@@ -79,8 +79,7 @@
     },
 
     methods: {
-      submit() {
-        
+      submit() {        
         const user = {
           email: this.email,
           password: this.password,

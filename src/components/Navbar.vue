@@ -5,7 +5,7 @@
       dark
     >
       <router-link to="/" class="no-style">
-        <div class="d-flex align-center">
+        <div class="d-flex align-center vline">
           <v-img
             alt="Vuetify Logo"
             class="shrink mr-2 align-middle"
@@ -27,26 +27,32 @@
         </div>
       </router-link>
 
+      <router-link to="/dashboard" class="no-style first-item" v-if="isLoggedIn">
+          <v-btn text>
+            <span class="mr-2">Dashboard</span>
+          </v-btn>
+      </router-link>
+
 
       <v-spacer></v-spacer>
 
 
       <div>
 
-        <router-link to="/login">
+        <router-link to="/login" v-if="! isLoggedIn">
           <v-btn text>
             <span class="mr-2">Login</span>
           </v-btn>
         </router-link>
 
-        <router-link to="/register">
+        <router-link to="/register" v-if="! isLoggedIn">
           <v-btn text>
             <span class="mr-2">Register</span>
           </v-btn>
         </router-link>
 
 
-        <v-btn text @click="logout">
+        <v-btn text @click="logout" v-if="isLoggedIn">
           <span class="mr-2">Logout</span>
         </v-btn>
 
@@ -76,6 +82,11 @@ import router from '../router'
             router.push({name: "Home"})
           })
       }
+    },
+    computed: {
+      isLoggedIn() {
+        return this.$store.getters.isLoggedIn
+      }
     }
   })
 </script>
@@ -102,6 +113,15 @@ import router from '../router'
 
 .align-middle {
   vertical-align: middle;
+}
+
+.vline {
+  padding-right: 25px;
+  border-right: 1px solid white;
+}
+
+.first-item {
+  margin-left: 15px;
 }
 
 </style>
