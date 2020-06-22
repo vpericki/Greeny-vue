@@ -35,6 +35,7 @@ export default new Vuex.Store({
         User.login(user)
           .then(response => {
             localStorage.setItem('auth', 'true')
+            
             commit('auth_success')
             resolve(response)
           })

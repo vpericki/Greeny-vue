@@ -12,7 +12,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import User from '../api/User'
 
 export default Vue.extend({
   
@@ -21,13 +20,6 @@ export default Vue.extend({
       user: null
     }
   },
-  mounted() {
-    User.auth()
-    .then(response => {
-      console.log(response.data);
-      
-    })
-  }
 
 
 })
