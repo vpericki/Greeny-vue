@@ -5,7 +5,7 @@
       dark
     >
       <router-link to="/" class="no-style">
-        <v-btn text class="align-center vline">
+        <v-btn text class="align-center vline" data-aos="fade-down">
           <v-img
             alt="Vuetify Logo"
             class="shrink mr-2 align-middle"
@@ -28,7 +28,7 @@
       </router-link>
 
       <router-link to="/dashboard" class="no-style first-item" v-if="isLoggedIn">
-          <v-btn text>
+          <v-btn text data-aos="flip-up">
             <span class="mr-2">Dashboard</span>
           </v-btn>
       </router-link>
@@ -38,19 +38,19 @@
       <div>
 
         <router-link to="/login" v-if="! isLoggedIn">
-          <v-btn text>
+          <v-btn text data-aos="flip-up">
             <span class="mr-2">Login</span>
           </v-btn>
         </router-link>
 
         <router-link to="/register" v-if="! isLoggedIn">
-          <v-btn text>
+          <v-btn text data-aos="flip-up">
             <span class="mr-2">Register</span>
           </v-btn>
         </router-link>
 
 
-        <v-btn text @click="logout" v-if="isLoggedIn" :loading="logoutLoading">
+        <v-btn text @click="logout" v-if="isLoggedIn" :loading="logoutLoading" data-aos="flip-up">
           <span class="mr-2">Logout</span>
         </v-btn>
 

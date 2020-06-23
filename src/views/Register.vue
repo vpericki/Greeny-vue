@@ -3,10 +3,7 @@
     <v-card class="card">
         <v-form v-model="valid">
             <v-layout column class="center">
-              <v-flex
-                xs12
-                md4
-              >
+              <v-flex xs12 md4>
                 <h1>Register</h1>
 
                 <v-text-field
@@ -17,10 +14,7 @@
                 ></v-text-field>
               </v-flex>
 
-              <v-flex
-                xs12
-                md4
-              >
+              <v-flex xs12 md4>
                 <v-text-field
                   :error="error['message'] ? true : false"
                   :error-messages="error['message'] ? 'Email already exists' : ''"
@@ -31,10 +25,7 @@
                 ></v-text-field>
               </v-flex>
 
-              <v-flex
-                xs12
-                md4
-              >
+              <v-flex xs12 md4>
                 <v-text-field
                   type="password"
                   v-model="password"
@@ -45,10 +36,7 @@
 
               </v-flex>
 
-              <v-flex
-                xs12
-                md4
-              >
+              <v-flex xs12 md4>
                 <v-text-field
                   type="password"
                   v-model="repeatPassword"
@@ -126,10 +114,7 @@ import router from '../router'
           .catch(error => {
             if(error.response.status === 422) {
               console.log(error.response.data)
-              this.error = error.response.data
-
-              
-              
+              this.error = error.response.data 
             }
         })
         .finally(() => {

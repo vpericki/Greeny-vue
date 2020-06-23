@@ -32,15 +32,13 @@
 
               </v-flex>
 
-
-              <v-flex
-                xs12
-                md4
-              >
-                <span>{{ error }}</span>
-              </v-flex>
               <v-flex xs12 md4>
                 <v-btn @click="submit" :loading="loginLoading">Login</v-btn>
+              </v-flex>
+
+              
+              <v-flex class="margin" xs12 md4 v-if="error.length > 0">
+                <span class="error">{{ error }}</span>
               </v-flex>
             </v-layout>
         </v-form>
@@ -72,9 +70,7 @@
 
     }),
     computed: {
-      isLoggedIn() {
-        console.log(this.$store.getters.isLoggedIn);
-        
+      isLoggedIn() {        
         return this.$store.getters.isLoggedIn
       }
     },
@@ -90,13 +86,17 @@
 
         this.$store.dispatch('login', user)
           .then(() => {
-            this.loginLoading = false
-           
             if(this.isLoggedIn) {
               router.push({name: "Dashboard"})
             } else {
               this.error = "Wrong credentials"
             }
+          })
+          .catch(() => {
+            this.error = "Wrong credentials"
+          })
+          .finally(() => {
+            this.loginLoading = false
           })
         
         
@@ -119,6 +119,16 @@
 
 .center {
   text-align: center;
+}
+
+.error {
+  color: white;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+.margin {
+  margin: 20px 0;
 }
 
 </style>
