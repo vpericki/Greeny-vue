@@ -27,15 +27,15 @@
         </v-btn>
       </router-link>
 
-      <router-link to="/dashboard" class="no-style first-item" v-if="isLoggedIn">
-          <v-btn text data-aos="flip-up">
-            <span class="mr-2">Dashboard</span>
-          </v-btn>
-      </router-link>
-
       <v-spacer></v-spacer>
 
       <div>
+
+        <router-link to="/dashboard" class="no-style first-item" v-if="isLoggedIn">
+          <v-btn text data-aos="flip-up">
+            <span class="mr-2">Dashboard</span>
+          </v-btn>
+        </router-link>
 
         <router-link to="/login" v-if="! isLoggedIn">
           <v-btn text data-aos="flip-up">
