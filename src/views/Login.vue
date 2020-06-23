@@ -40,7 +40,7 @@
                 <span>{{ error }}</span>
               </v-flex>
               <v-flex xs12 md4>
-                <v-btn @click="submit">Login</v-btn>
+                <v-btn @click="submit" :loading="loginLoading">Login</v-btn>
               </v-flex>
             </v-layout>
         </v-form>
@@ -66,7 +66,8 @@
       passwordRules: [
         (v: string) => !!v || 'Password is required',
       ],
-      error: ''
+      error: '',
+      loginLoading: false,
       
 
     }),
@@ -79,7 +80,9 @@
     },
 
     methods: {
-      submit() {        
+      submit() {  
+        this.loginLoading = true
+        
         const user = {
           email: this.email,
           password: this.password,
@@ -87,6 +90,8 @@
 
         this.$store.dispatch('login', user)
           .then(() => {
+            this.loginLoading = false
+           
             if(this.isLoggedIn) {
               router.push({name: "Dashboard"})
             } else {

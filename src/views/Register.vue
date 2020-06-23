@@ -22,6 +22,8 @@
                 md4
               >
                 <v-text-field
+                  :error="error['message'] ? true : false"
+                  :error-messages="error['message'] ? 'Email already exists' : ''"
                   v-model="email"
                   :rules="emailRules"
                   label="E-mail"
@@ -57,8 +59,9 @@
 
               </v-flex>
               <v-flex xs12 md4>
-                <v-btn @click="submit">Register</v-btn>
+                <v-btn @click="submit" :loading="registerLoading">Register</v-btn>
               </v-flex>
+
             </v-layout>
         </v-form>
     </v-card>
@@ -74,6 +77,7 @@ import router from '../router'
     name: 'Register',
 
     data: () => ({
+      error: {},
       valid: false,
       username: '',
       usernameRules: [
@@ -83,7 +87,8 @@ import router from '../router'
       email: '',
       emailRules: [
         (v: string) => !!v || 'E-mail is required',
-        (v: string) => /.+@.+/.test(v) || 'E-mail must be valid'
+        (v: string) => /.+@.+/.test(v) || 'E-mail must be valid',
+        
       ],
       password: '',
       passwordRules: [
@@ -91,8 +96,7 @@ import router from '../router'
         (v: string) => v.length >= 8 || 'Password must be longer than 8 characters'
       ],
       repeatPassword: '',
-      
-
+      registerLoading: false,
     }),
     computed: {
       passwordConfirmationRule() {
@@ -105,7 +109,8 @@ import router from '../router'
 
     methods: {
       submit() {
-        
+        this.registerLoading = true
+
         const user = {
           username: this.username,
           email: this.email,
@@ -120,9 +125,15 @@ import router from '../router'
           })
           .catch(error => {
             if(error.response.status === 422) {
-              console.log(error.response.data.errors);
+              console.log(error.response.data)
+              this.error = error.response.data
+
+              
               
             }
+        })
+        .finally(() => {
+            this.registerLoading = false
         })
         
         

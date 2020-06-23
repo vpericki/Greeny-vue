@@ -33,9 +33,7 @@
           </v-btn>
       </router-link>
 
-
       <v-spacer></v-spacer>
-
 
       <div>
 
@@ -52,12 +50,9 @@
         </router-link>
 
 
-        <v-btn text @click="logout" v-if="isLoggedIn">
+        <v-btn text @click="logout" v-if="isLoggedIn" :loading="logoutLoading">
           <span class="mr-2">Logout</span>
         </v-btn>
-
-
-
 
       </div>
 
@@ -73,12 +68,17 @@ import router from '../router'
     name: 'Navbar',
 
     data: () => ({
+      logoutLoading: false
     }),
 
     methods: {
       logout() {
+        this.logoutLoading = true
+
         this.$store.dispatch('logout')
           .then(() => {
+            this.logoutLoading = false
+
             router.push({name: "Home"})
           })
       }
