@@ -5,7 +5,7 @@
       dark
     >
       <router-link to="/" class="no-style">
-        <div class="d-flex align-center vline">
+        <v-btn text class="align-center vline">
           <v-img
             alt="Vuetify Logo"
             class="shrink mr-2 align-middle"
@@ -24,7 +24,7 @@
           >
           Greeny
           </span>
-        </div>
+        </v-btn>
       </router-link>
 
       <router-link to="/dashboard" class="no-style first-item" v-if="isLoggedIn">
@@ -117,7 +117,7 @@ import router from '../router'
 
 .vline {
   padding-right: 25px;
-  border-right: 1px solid white;
+  border-right: 2px solid white;
 }
 
 .first-item {
