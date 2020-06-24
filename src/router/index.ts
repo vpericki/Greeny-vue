@@ -5,6 +5,14 @@ import store from '../store'
 
 Vue.use(VueRouter)
 
+
+// Authorize can be:
+/*
+  User
+  Admin
+  SuperAdmin 
+*/
+
   const routes: Array<RouteConfig> = [
   {
     path: '/',
@@ -18,25 +26,42 @@ Vue.use(VueRouter)
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-    meta: { requiredAuth: true}
   },
   {
     path: '/dashboard',
     name: 'Dashboard',
     component: () => import('../views/Dashboard.vue'),
-    meta: { requiredAuth: true}
+    meta: { authorize: ['User']}
+  },
+  {
+    path: '/achievements',
+    name: 'Achievements',
+    component: () => import('../views/Achievements.vue'),
+    meta: { authorize: ['User']}
+  },
+  {
+    path: '/achievement/:id',
+    name: 'AchievementDetails',
+    component: () => import('../views/AchievementDetails.vue'),
   },
   {
     path: '/register',
     name: 'Register',
     component: () => import('../views/Register.vue'),
-    meta: { requiredAuth: false }
   },
   {
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue'),
-    meta: { requiredAuth: false }
+  },
+  {
+    path: '/forbidden',
+    name: 'Forbidden',
+    component: () => import('../views/Forbidden.vue'),
+  },
+  {
+    // redirect to home if no path
+    path: '*', redirect: '/'
   }
   
 ]
@@ -47,15 +72,32 @@ const router = new VueRouter({
 
 
 router.beforeEach((to, from, next) => {
-  if(to.matched.some(route => route.meta.requiredAuth)) {
+
+  const { authorize } = to.meta
+
+  if(authorize) {
     if (store.getters.isLoggedIn) {
-      next()
+
+      if(authorize.length == 0) {
+        next()
+        return
+      }
+
+      if(authorize.length > 0 && authorize.some((role: string) => store.getters.roles.includes(role))) {
+        next()
+        return
+      } else {
+        next('/')
+        return
+      }
+    } else {
+      next('/login')
       return
     }
-    next('/login') 
-  } else {
-    next() 
   }
+
+    next() 
+  
 })
 
 

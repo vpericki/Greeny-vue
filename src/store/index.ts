@@ -9,6 +9,8 @@ export default new Vuex.Store({
   state: {
     isLoggedIn: localStorage.getItem('auth') ? true : false,
     pending: false,
+    roles: localStorage.getItem('userRoles') ? JSON.parse(localStorage.getItem('userRoles') as string) : []
+ 
   },
   mutations: {
     auth_pending(state) {
@@ -35,7 +37,8 @@ export default new Vuex.Store({
         User.login(user)
           .then(response => {
             localStorage.setItem('auth', 'true')
-            
+            localStorage.setItem('userRoles', JSON.stringify(response.data[1]))            
+                                  
             commit('auth_success')
             resolve(response)
           })
@@ -52,6 +55,8 @@ export default new Vuex.Store({
         User.logout()
         .then(() => {
           localStorage.removeItem('auth')
+          localStorage.removeItem('roles')
+
           commit('auth_logout')
 
           resolve()
@@ -67,8 +72,11 @@ export default new Vuex.Store({
 
   }, 
   getters: {
-    isLoggedIn: state => {
+    isLoggedIn: state => {      
       return state.isLoggedIn
+    },
+    roles: state => {
+      return state.roles
     }
   },
   modules: {

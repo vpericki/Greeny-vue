@@ -27,9 +27,33 @@
         </v-btn>
       </router-link>
 
+      <router-link to="/achievements" class="no-style first-item" v-if="isLoggedIn">
+        <v-btn text data-aos="flip-up">
+          <span class="mr-2">Achievements</span>
+        </v-btn>
+      </router-link>
+
       <v-spacer></v-spacer>
 
       <div>
+
+          <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                color="primary"
+                dark
+                v-bind="attrs"
+                v-on="on"
+              >
+                Dropdown
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item>
+                <v-list-item-title>First item</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
 
         <router-link to="/dashboard" class="no-style first-item" v-if="isLoggedIn">
           <v-btn text data-aos="flip-up">
