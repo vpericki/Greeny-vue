@@ -72,7 +72,6 @@ import router from '../router'
       username: '',
       usernameRules: [
         (v: string) => !!v || 'Name is required',
-        (v: string) => v.length <= 10 || 'Name must be less than 10 characters'
       ],
       email: '',
       emailRules: [

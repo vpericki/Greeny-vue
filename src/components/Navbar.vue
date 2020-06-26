@@ -36,24 +36,32 @@
       <v-spacer></v-spacer>
 
       <div>
-
-          <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                color="primary"
-                dark
-                v-bind="attrs"
-                v-on="on"
-              >
-                Dropdown
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item>
-                <v-list-item-title>First item</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
+        
+        <v-menu offset-y v-if="isAdmin && isLoggedIn">
+          <template v-slot:activator="{ on }">
+            <v-btn
+              color="#f4f1e9"
+              light
+              v-on="on"
+            >
+              Admin tools
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item v-if="isSuperAdmin">
+             <router-link  to="/manage/users" ><v-list-item v-ripple><span>Manage users</span></v-list-item></router-link>
+            </v-list-item>
+            <v-list-item  v-if="isSuperAdmin">
+             <router-link to="/manage/roles"><v-list-item v-ripple>Manage roles</v-list-item></router-link>
+            </v-list-item>
+            <v-list-item >
+             <router-link to="/manage/codes"><v-list-item v-ripple>Manage and generate codes</v-list-item></router-link>
+            </v-list-item>
+            <v-list-item>
+             <router-link to="/manage/achievements"><v-list-item v-ripple>Manage achievements</v-list-item></router-link>
+            </v-list-item>
+          </v-list>
+        </v-menu>
 
         <router-link to="/dashboard" class="no-style first-item" v-if="isLoggedIn">
           <v-btn text data-aos="flip-up">
@@ -110,6 +118,12 @@ import router from '../router'
     computed: {
       isLoggedIn() {
         return this.$store.getters.isLoggedIn
+      },
+      isAdmin() {
+        return this.$store.getters.roles.some((role: string) => role === 'Admin')
+      },
+      isSuperAdmin() {
+        return this.$store.getters.roles.some((role: string) => role === 'SuperAdmin')
       }
     }
   })

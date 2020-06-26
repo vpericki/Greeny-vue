@@ -8,6 +8,8 @@ import "aos/dist/aos.css";
 
 Vue.config.productionTip = false
 
+export const bus = new Vue()
+
 new Vue({
   created() {
     AOS.init({ disable: 'phone', once: true})    

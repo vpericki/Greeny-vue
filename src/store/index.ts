@@ -19,13 +19,16 @@ export default new Vuex.Store({
     auth_success(state) {
       state.isLoggedIn = true
       state.pending = false
+      state.roles = JSON.parse(localStorage.getItem('userRoles') as string)
     },
     auth_logout(state) {
       state.isLoggedIn = false
+      state.roles = []
     },
     auth_failed(state) {
       state.isLoggedIn = false
       state.pending = false
+      state.roles = []
     }
     
   },
@@ -55,7 +58,7 @@ export default new Vuex.Store({
         User.logout()
         .then(() => {
           localStorage.removeItem('auth')
-          localStorage.removeItem('roles')
+          localStorage.removeItem('userRoles')
 
           commit('auth_logout')
 

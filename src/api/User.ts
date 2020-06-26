@@ -19,5 +19,15 @@ export default {
   },
   auth() {
     return Api.get('/user', {withCredentials: true})
+  },
+  async getAll() {
+    await Csrf.getCookie()
+    return Api.get('/users')
+  },
+  async updateUser(user: object, id: string) {
+    await Csrf.getCookie()
+    return Api.put(`/users/${id}`, user)
   }
 }
+
+

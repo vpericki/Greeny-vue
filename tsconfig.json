@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "plugins": [{ "name": "ts-vue-plugin" }],
     "target": "esnext",
     "module": "esnext",
     "strict": true,
@@ -8,7 +10,6 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
     "types": [

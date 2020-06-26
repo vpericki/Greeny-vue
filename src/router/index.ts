@@ -43,6 +43,10 @@ Vue.use(VueRouter)
     path: '/achievement/:id',
     name: 'AchievementDetails',
     component: () => import('../views/AchievementDetails.vue'),
+  },  {
+    path: '/manage/users',
+    name: 'ManageUsers',
+    component: () => import('../views/ManageUsers.vue'),
   },
   {
     path: '/register',
@@ -69,7 +73,6 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   routes
 })
-
 
 router.beforeEach((to, from, next) => {
 
