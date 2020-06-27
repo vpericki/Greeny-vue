@@ -31,8 +31,8 @@
             multi-sort
           >
 
-          <template v-slot:item.info = " { item } ">
-            <v-icon large color="#2b463c" @click="infoDialog(item)">mdi-information</v-icon>
+          <template v-slot:item.achievements = " { item } ">
+            <user-achievements-dialog :achievements="item.achievements" />
 
           </template>
 
@@ -42,13 +42,34 @@
           </template>
 
           <template v-slot:item.delete = " { item } ">
-            <v-icon large color="red darken-2" @click="deleteDialog(item)">mdi-delete-forever</v-icon>
+            <v-icon large color="red darken-2" @click="deleteDialog(item.id)">mdi-delete-forever</v-icon>
           </template>
 
 
           </v-data-table>
         </v-card>
       </v-flex>
+
+
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="snackbarData.timeout"
+    >
+      {{ snackbarData.text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="#f4f1e9"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
+    <confirm ref="confirm" />
 
     </v-layout>
 
@@ -60,10 +81,15 @@
 import Vue from 'vue'
 import User from '../api/User'
 import UserEditDialog from '../components/Popups/UserEditDialog.vue'
+import UserAchievementsDialog from '../components/Popups/UserAchievementsDialog.vue'
+import Confirm from '../components/Popups/Confirm.vue'
+import { bus } from '../main'
 
 export default Vue.extend({
   components: {
     UserEditDialog,
+    Confirm,
+    UserAchievementsDialog,
   },
   data() {
     return {
@@ -96,8 +122,8 @@ export default Vue.extend({
           align: 'center'
         },
         {
-          text: 'Info',
-          value: 'info',
+          text: 'Achievements',
+          value: 'achievements',
           sortable: false,
           align: 'center'
         },
@@ -115,12 +141,33 @@ export default Vue.extend({
         }
 
       ],
-      snackBarData: {
+      snackbarData: {
         text: '',
-        snackbar: false,
         timeout: -1
       },
       snackbar: false
+
+    }
+  },
+  methods: {
+    async deleteDialog(id: string) {
+      
+      if( await this.$root.$data.confirm.open('Delete', 'Are you sure?', { color: 'red' })) {
+        User.deleteUser(id)
+        .then(response => {
+          console.log(response);
+          
+          this.users = this.users.filter(user => user['id'] !== id)
+        })
+        .catch(err => {
+          console.log(err);
+          
+        })
+        
+      } else {
+        console.log('not ok');
+        
+      }
 
     }
   },
@@ -129,13 +176,20 @@ export default Vue.extend({
 
     User.getAll()
       .then(response => {
+        
         this.users = response.data
+        console.log(this.users);
 
         this.loading = false
       })
       .catch(err => {
         console.log(err);
         
+      })
+
+      bus.$on('editUserSnackbar', (data: {text: string; timeout: number}) => {
+        this.snackbarData = data
+        this.snackbar = true
       })
   }
 })

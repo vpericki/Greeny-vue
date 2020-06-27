@@ -43,6 +43,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import User from '../../api/User'
+import { bus } from '../../main'
 
 export default Vue.extend({
   props: {
@@ -87,6 +88,11 @@ export default Vue.extend({
         this.userCopy = this.user
 
         this.dialog = false
+
+        bus.$emit('editUserSnackbar', {
+          text: 'Successfully edited user!',
+          timeout: 4000
+        })
 
         this.saveLoading = false
 

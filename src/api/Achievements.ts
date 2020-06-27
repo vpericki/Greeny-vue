@@ -12,5 +12,9 @@ export default {
   async getAchievementById(id: string) {
     await Csrf.getCookie()
     return Api.get(`/achievement/${id}`)
+  },
+  async getUserAchievements(id: string) {
+    await Csrf.getCookie()
+    return Api.get(`/achievement/user/${id}`)
   }
 }

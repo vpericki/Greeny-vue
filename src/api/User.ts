@@ -27,6 +27,10 @@ export default {
   async updateUser(user: object, id: string) {
     await Csrf.getCookie()
     return Api.put(`/users/${id}`, user)
+  },
+  async deleteUser(id: string) {
+    await Csrf.getCookie()
+    return Api.delete(`/users/${id}`)
   }
 }
 
