@@ -49,13 +49,14 @@
 <script lang="ts">
 import Vue from 'vue'
 import Achievements from '../api/Achievements'
+import { AchievementModel } from '../models/AchievementModel'
 
 export default Vue.extend({
   
   data() {
     return {
-      achievements: {},
-      achievementsLoading: false
+      achievements: [] as Array<AchievementModel>,
+      achievementsLoading: false,
     }
   },
   created() {

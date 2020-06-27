@@ -43,10 +43,25 @@ Vue.use(VueRouter)
     path: '/achievement/:id',
     name: 'AchievementDetails',
     component: () => import('../views/AchievementDetails.vue'),
-  },  {
+    meta: {authorize: ['User']}
+  },
+  {
     path: '/manage/users',
     name: 'ManageUsers',
-    component: () => import('../views/ManageUsers.vue'),
+    component: () => import('../views/SuperAdmin/ManageUsers.vue'),
+    meta: {authorize: ['SuperAdmin']}
+  },
+  {
+    path: '/manage/roles',
+    name: 'ManageRoles',
+    component: () => import('../views/SuperAdmin/ManageRoles.vue'),
+    meta: {authorize: ['SuperAdmin']}
+  },  
+  {
+    path: '/manage/achievements',
+    name: 'ManageAchievements',
+    component: () => import('../views/Admin/ManageAchievements.vue'),
+    meta: {authorize: ['Admin']}
   },
   {
     path: '/register',

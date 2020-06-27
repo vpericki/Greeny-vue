@@ -35,12 +35,14 @@
 import Vue from 'vue'
 import router from '../router';
 import Achievements from '../api/Achievements';
+import { UserModel } from '../models/UserModel';
+import { AchievementModel } from '../models/AchievementModel';
 export default Vue.extend({
   
   data() {
     return {
-      achievement: {},
-      users: [],
+      achievement: {} as AchievementModel,
+      users: [] as Array<UserModel>,
       headers: [
           {
             text: 'Username',

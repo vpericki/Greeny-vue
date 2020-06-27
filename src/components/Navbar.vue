@@ -3,8 +3,10 @@
       app
       color="#2b463c"
       dark
+      
     >
-      <router-link to="/" class="no-style">
+    
+      <router-link to="/" class="no-style" >
         <v-btn text class="align-center vline" data-aos="fade-down">
           <v-img
             alt="Vuetify Logo"
@@ -87,7 +89,6 @@
         </v-btn>
 
       </div>
-
 
     </v-app-bar>
 </template>

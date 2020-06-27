@@ -69,7 +69,6 @@
       </template>
     </v-snackbar>
 
-    <confirm ref="confirm" />
 
     </v-layout>
 
@@ -79,22 +78,21 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import User from '../api/User'
-import UserEditDialog from '../components/Popups/UserEditDialog.vue'
-import UserAchievementsDialog from '../components/Popups/UserAchievementsDialog.vue'
-import Confirm from '../components/Popups/Confirm.vue'
-import { bus } from '../main'
+import User from '../../api/User'
+import UserEditDialog from '../../components/Popups/UserEditDialog.vue'
+import UserAchievementsDialog from '../../components/Popups/UserAchievementsDialog.vue'
+import { bus } from '../../main'
+import { UserModel } from '../../models/UserModel'
 
 export default Vue.extend({
   components: {
     UserEditDialog,
-    Confirm,
     UserAchievementsDialog,
   },
   data() {
     return {
       loading: false,
-      users: [],
+      users: [] as Array<UserModel>,
       search: '',
       headers: [
         {
@@ -150,14 +148,14 @@ export default Vue.extend({
     }
   },
   methods: {
-    async deleteDialog(id: string) {
+    async deleteDialog(id: number) {
       
       if( await this.$root.$data.confirm.open('Delete', 'Are you sure?', { color: 'red' })) {
-        User.deleteUser(id)
+        User.deleteUser(id.toString())
         .then(response => {
           console.log(response);
           
-          this.users = this.users.filter(user => user['id'] !== id)
+          this.users = this.users.filter(user => user.id !== id)
         })
         .catch(err => {
           console.log(err);
