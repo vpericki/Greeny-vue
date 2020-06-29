@@ -10,5 +10,9 @@ export default {
   async deleteRoleFromUser(idUser: string, idRole: string) {
     await Csrf.getCookie()
     return Api.delete(`/role/${idUser}/${idRole}`)
+  },
+  async addRoleToUser(idUser: string, idRole: string) {
+    await Csrf.getCookie()
+    return Api.put(`/role/${idUser}/${idRole}`)
   }
 }

@@ -1,6 +1,5 @@
 import Api from './Api'
 import Csrf from './Csrf'
-import store from '@/store'
 import { AchievementModel } from '@/models/AchievementModel'
 
 export default {

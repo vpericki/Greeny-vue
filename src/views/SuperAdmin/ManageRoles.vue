@@ -33,27 +33,14 @@
 
           
           <template v-slot:item.roles = " { item } ">
-              <td>
-                <div class="body-2 mt-4 mb-2" v-for="role in item.roles" :key="role.id">
-                  <span >
-                    {{ role.name }}
-                  </span>
-                  <v-btn outlined x-small  fab color="red darken-2" @click="removeRole(item.id, role.id)"><v-icon>mdi-delete</v-icon></v-btn>
-                </div>
+              <td v-for="role in item.roles" :key="role.id">
+                  <v-btn outlined x-small class="ma-1" color="red darken-2" @click="removeRole(item.id, role.id)"><v-icon>mdi-delete</v-icon>{{role.name}}</v-btn>
               </td>
           </template>
 
-          <template v-slot:item.edit>
-
+          <template v-slot:item.edit = " { item } ">
             
-              <v-select
-                class="max-width"
-                :items="roles"
-                item-text="name"
-                label="Select a role to add"
-              ></v-select>
-
-              <v-btn class="ml-4" @click="addRoleToUser()"> Add role</v-btn>
+              <user-role-edit-dialog :roles="roles" :user="item" />
           </template>
 
           </v-data-table>
@@ -93,9 +80,11 @@ import Role from '../../api/Role'
 import {UserModel} from '../../models/UserModel'
 import { bus } from '../../main'
 import { RoleModel } from '../../models/RoleModel'
+import UserRoleEditDialog from '../../components/Popups/UserRoleEditDialog.vue'
 
 export default Vue.extend({
   components: {
+    UserRoleEditDialog,
   },
   data() {
     return {
@@ -129,7 +118,7 @@ export default Vue.extend({
           align: 'left'
         },
         {
-          text: 'Edit',
+          text: 'Add roles',
           value: 'edit',
           sortable: false,
           align: 'center'
@@ -140,7 +129,8 @@ export default Vue.extend({
         text: '',
         timeout: -1
       },
-      snackbar: false
+      snackbar: false,
+      selected: {} as RoleModel
 
     }
   },
@@ -167,7 +157,11 @@ export default Vue.extend({
           
         })
     },
+    addRoleToUser() {
+      console.log(this.selected)
+    }
   },
+
   created() {
     this.loading = true
 
@@ -192,7 +186,7 @@ export default Vue.extend({
         
       })
 
-      bus.$on('editUserSnackbar', (data: {text: string; timeout: number}) => {
+      bus.$on('successAddingRole', (data: {text: string; timeout: number}) => {
         this.snackbarData = data
         this.snackbar = true
       })
