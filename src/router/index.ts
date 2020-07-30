@@ -62,6 +62,12 @@ Vue.use(VueRouter)
     name: 'ManageAchievements',
     component: () => import('../views/Admin/ManageAchievements.vue'),
     meta: {authorize: ['Admin']}
+  },  
+  {
+    path: '/manage/codes',
+    name: 'ManageCodes',
+    component: () => import('../views/Admin/ManageCodes.vue'),
+    meta: {authorize: ['Admin']}
   },
   {
     path: '/register',
@@ -113,10 +119,7 @@ router.beforeEach((to, from, next) => {
       return
     }
   }
-
     next() 
-  
 })
-
 
 export default router

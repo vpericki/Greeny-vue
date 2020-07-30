@@ -29,8 +29,3 @@ Api.interceptors.response.use((response) => {
 Api.defaults.withCredentials = true
 
 export default Api
-
-
-
-
-

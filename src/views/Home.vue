@@ -4,7 +4,7 @@
     <v-layout row wrap>
       <v-flex>
         <v-card dark color="#2b463c">
-          <v-card-text>Welcome to greeny app!</v-card-text>
+          <v-card-text class="text-center"><h1>Welcome to greeny app!</h1></v-card-text>
         </v-card>
       </v-flex>
     </v-layout>

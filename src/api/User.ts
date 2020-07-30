@@ -33,5 +33,3 @@ export default {
     return Api.delete(`/users/${id}`)
   }
 }
-
-

@@ -3,7 +3,7 @@
       app
       color="#2b463c"
       dark
-      
+      hide-on-scroll
     >
     
       <router-link to="/" class="no-style" >
