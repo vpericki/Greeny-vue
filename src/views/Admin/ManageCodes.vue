@@ -32,6 +32,19 @@
 
       </v-flex>
 
+      <v-flex xs12 md12>
+          <v-data-table
+            :headers="headers"
+            :items="rewardCodes"
+            :search="search"
+            multi-sort
+          >
+
+          </v-data-table>
+
+
+      </v-flex>
+
 
 
     </v-layout>
@@ -64,27 +77,14 @@ export default Vue.extend({
           text: 'Reward Code',
           align: 'left',
           sortable: true,
-          value: 'reward_code',
+          value: 'unique_code',
         },
         { 
           text: 'Points',
-          value: 'points',
+          value: 'reward',
           sortable: true,
           align: 'left'
         },
-        { 
-          text: 'Roles',
-          value: 'roles',
-          sortable: false,
-          align: 'left'
-        },
-        {
-          text: 'Add roles',
-          value: 'edit',
-          sortable: false,
-          align: 'center'
-        }
-
       ],
 
     }

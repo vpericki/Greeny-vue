@@ -66,8 +66,7 @@
           <template v-slot:item.delete = " { item } ">
             <v-icon large color="red darken-2" @click="deleteDialog(item.id)">mdi-delete-forever</v-icon>
           </template>
-
-
+          
           </v-data-table>
         </v-card>
       </v-flex>
