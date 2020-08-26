@@ -36,7 +36,6 @@
           <v-data-table
             :headers="headers"
             :items="rewardCodes"
-            :search="search"
             multi-sort
           >
 
@@ -91,7 +90,10 @@ export default Vue.extend({
   },
   methods: {
     generateRandomCode() {
-      return
+      Codes.generateRandomCode(this.slider, 10)
+        .then(response => {
+          console.log(response)
+        })
     }
   },
   created() {

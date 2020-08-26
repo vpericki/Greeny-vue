@@ -6,4 +6,13 @@ export default {
     await Csrf.getCookie()
     return Api.get('/rewardcodes')
   },
+  async generateRandomCode(length: number, reward: number) {
+    await Csrf.getCookie()
+    return Api.post(`/rewardcodes/${length}/${reward}`)
+  },
+  async generateCode(reward: number) {
+    await Csrf.getCookie()
+    return Api.post(`/rewardcodes/${reward}`)
+  }
+
 }
