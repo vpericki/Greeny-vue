@@ -30,7 +30,6 @@
             :search="search"
             multi-sort
           >
-
           
           <template v-slot:item.roles = " { item } ">
               <td v-for="role in item.roles" :key="role.id">

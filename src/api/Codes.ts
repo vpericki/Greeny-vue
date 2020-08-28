@@ -10,9 +10,9 @@ export default {
     await Csrf.getCookie()
     return Api.post(`/rewardcodes/${length}/${reward}`)
   },
-  async generateCode(reward: number) {
+  async generateCode(code: string, reward: number) {
     await Csrf.getCookie()
-    return Api.post(`/rewardcodes/${reward}`)
+    return Api.post(`/rewardcodes/${reward}`, {code: code})
   }
 
 }
