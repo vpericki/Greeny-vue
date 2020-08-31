@@ -11,6 +11,9 @@
             :items="rewardCodes"
             multi-sort
           >
+          <template v-slot:item.delete = " { item } ">
+            <v-icon large color="red darken-2" @click="deleteDialog(item.id)">mdi-delete-forever</v-icon>
+          </template>
 
           </v-data-table>
 
@@ -128,7 +131,13 @@ export default Vue.extend({
           value: 'reward',
           sortable: true,
           align: 'left'
-        },
+        },        
+        {
+          text: 'Delete',
+          value: 'delete',
+          sortable: false,
+          align: 'center'
+        }
       ],
       snackbar: false,
       snackbarText: "" as string,
@@ -175,8 +184,6 @@ export default Vue.extend({
         .catch((error) => {
           this.snackbar = true
           
-                      console.log(error)
-
           this.snackbarText = error.message ? error.message : error
           if(error.errors) {
               this.snackbarText = ""
@@ -194,6 +201,25 @@ export default Vue.extend({
 
           })
 
+
+    },
+  async deleteDialog(id: number) {
+      
+      if( await this.$root.$data.confirm.open('Delete', 'Are you sure?', { color: 'red' })) {
+          Codes.delete(id)
+          .then(() => {
+            console.log('successfully deleted a reward code');
+            
+            this.rewardCodes = this.rewardCodes.filter(code => code.id !== id)
+          })
+          .catch(err => {
+            console.log(err);
+            
+          })         
+      } else {
+        console.log('not ok');
+        
+      }
 
     }
   },

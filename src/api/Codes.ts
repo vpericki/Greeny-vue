@@ -13,6 +13,10 @@ export default {
   async generateCode(code: string, reward: number) {
     await Csrf.getCookie()
     return Api.post(`/rewardcodes/${reward}`, {code: code})
+  },
+  async delete(id: number) {
+    await Csrf.getCookie()
+    return Api.delete(`/rewardcodes/${id}`)
   }
 
 }
