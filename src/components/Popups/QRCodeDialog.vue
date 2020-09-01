@@ -15,8 +15,14 @@
         <v-card-title>
           <span class="headline">QR Code</span>
         </v-card-title>
+        <v-container>
+          <v-row class="text-center">
 
-        <qrcode value="Hello, World" :options="{ width: 200 }"></qrcode>
+            <qrcode :value="code" :options="{ width: 200 }"></qrcode>
+
+          </v-row>
+
+        </v-container>
       
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -31,7 +37,8 @@ import Vue from 'vue'
 
 export default Vue.extend({
   props: {
-    code: Object
+    code: String,
+    reward: Number
   },
   data: () => ({
     dialog: false,

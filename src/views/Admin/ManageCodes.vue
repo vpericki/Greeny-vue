@@ -16,7 +16,7 @@
           </template>
 
           <template v-slot:item.qrCode = " { item } ">
-            <q-r-code-dialog :code="item" />
+            <q-r-code-dialog :code="item.unique_code" :reward="item.reward" />
           </template>
 
           </v-data-table>
