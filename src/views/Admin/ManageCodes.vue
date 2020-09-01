@@ -15,6 +15,10 @@
             <v-icon large color="red darken-2" @click="deleteDialog(item.id)">mdi-delete-forever</v-icon>
           </template>
 
+          <template v-slot:item.qrCode = " { item } ">
+            <q-r-code-dialog :code="item" />
+          </template>
+
           </v-data-table>
 
 
@@ -98,9 +102,12 @@
 import Vue from 'vue'
 import {RewardCodeModel} from '@/models/RewardCodeModel'
 import Codes from '@/api/Codes'
+import QRCodeDialog from '../../components/Popups/QRCodeDialog.vue'
 
 export default Vue.extend({
   components: {
+    QRCodeDialog,
+
   },
   data() {
     return {
@@ -135,6 +142,12 @@ export default Vue.extend({
         {
           text: 'Delete',
           value: 'delete',
+          sortable: false,
+          align: 'center'
+        },
+        {
+          text: 'Show QR Code',
+          value: 'qrCode',
           sortable: false,
           align: 'center'
         }
@@ -221,7 +234,8 @@ export default Vue.extend({
         
       }
 
-    }
+    },
+
   },
   created() {
     this.loading = true
