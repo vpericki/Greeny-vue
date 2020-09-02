@@ -40,6 +40,12 @@ Vue.use(VueRouter)
     meta: { authorize: ['User']}
   },
   {
+    path: '/redeem',
+    name: 'Redeem',
+    component: () => import('../views/Redeem.vue'),
+    meta: { authorize: ['User']}
+  },
+  {
     path: '/achievement/:id',
     name: 'AchievementDetails',
     component: () => import('../views/AchievementDetails.vue'),

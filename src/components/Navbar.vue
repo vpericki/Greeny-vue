@@ -38,8 +38,15 @@
                   </v-btn>
                 </router-link>
               </li>
-              <li>
-                <v-menu offset-y v-if="isAdmin && isLoggedIn">
+              <li v-if="isLoggedIn">
+                <router-link to="/redeem" class="no-style first-item" v-if="isLoggedIn">
+                  <v-btn text>
+                    <span class="mr-2 white--text">Redeem code</span>
+                  </v-btn>
+                </router-link>
+              </li>
+              <li v-if="isAdmin && isLoggedIn">
+                <v-menu offset-y >
                   <template v-slot:activator="{ on }">
                     <v-btn
                       color="#f4f1e9"
@@ -109,7 +116,7 @@
         <v-btn text class="align-center vline" data-aos="fade-down">
           <v-img
             alt="Vuetify Logo"
-            class="shrink mr-2 align-middle"
+            class="shrink mr-1 align-middle"
             contain
             :src="require('../assets/greeny_logo.png')"
             transition="scale-transition"
@@ -130,7 +137,13 @@
 
       <router-link to="/achievements" class="no-style first-item" v-if="isLoggedIn">
         <v-btn text data-aos="flip-up">
-          <span class="mr-2">Achievements</span>
+          <span class="mr-1">Achievements</span>
+        </v-btn>
+      </router-link>
+
+      <router-link to="/redeem" class="no-style first-item" v-if="isLoggedIn">
+        <v-btn text data-aos="flip-up">
+          <span class="mr-1">Redeem code</span>
         </v-btn>
       </router-link>
 
@@ -166,25 +179,25 @@
 
         <router-link to="/dashboard" class="no-style first-item" v-if="isLoggedIn">
           <v-btn text data-aos="flip-up">
-            <span class="mr-2">Dashboard</span>
+            <span class="mr-1">Dashboard</span>
           </v-btn>
         </router-link>
 
         <router-link to="/login" v-if="! isLoggedIn">
           <v-btn text data-aos="flip-up">
-            <span class="mr-2">Login</span>
+            <span class="mr-1">Login</span>
           </v-btn>
         </router-link>
 
         <router-link to="/register" v-if="! isLoggedIn">
           <v-btn text data-aos="flip-up">
-            <span class="mr-2">Register</span>
+            <span class="mr-1">Register</span>
           </v-btn>
         </router-link>
 
 
         <v-btn text @click="logout" v-if="isLoggedIn" :loading="logoutLoading" data-aos="flip-up">
-          <span class="mr-2">Logout</span>
+          <span class="mr-1">Logout</span>
         </v-btn>
 
       </div>
@@ -306,7 +319,6 @@ import router from '../router'
   height: 50px;
   opacity: 0;
 
-  width: 100em;
   background-color: var(--primary-color);
 
 }
