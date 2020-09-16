@@ -2,25 +2,33 @@
   <v-app>
     <Navbar>
     </Navbar>
-    <v-main>
+    <v-main class="main-margin">
       <router-view/>
     </v-main>
+
      <confirm ref="confirm"></confirm>
+    <Footer />
   </v-app>
+
+
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import VueQrCodeReader from "vue-qrcode-reader"
 import Navbar from './components/Navbar.vue';
 import Confirm from './components/Popups/Confirm.vue'
+import Footer from '@/components/Footer.vue'
 
+Vue.use(VueQrCodeReader)
 
 export default Vue.extend({
   name: 'App',
 
   components: {
     Navbar,
-    Confirm
+    Confirm,
+    Footer
   },
 
   data: () => ({
@@ -31,3 +39,8 @@ export default Vue.extend({
   }
 });
 </script>
+<style>
+  .main-margin {
+    margin-bottom: 100px;
+  }
+</style>

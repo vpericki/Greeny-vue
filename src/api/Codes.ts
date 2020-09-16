@@ -17,6 +17,10 @@ export default {
   async delete(id: number) {
     await Csrf.getCookie()
     return Api.delete(`/rewardcodes/${id}`)
+  },
+  async redeemCode(code: string) {
+    await Csrf.getCookie()
+    return Api.get(`/rewardcodes/redeem/${code}`)
   }
 
 }

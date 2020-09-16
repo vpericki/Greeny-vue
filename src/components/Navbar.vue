@@ -245,7 +245,6 @@ import router from '../router'
 
 <style>
 
-
 .menu-wrap {
   display: none;
 }

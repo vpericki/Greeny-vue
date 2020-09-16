@@ -25,5 +25,9 @@ export default {
   async store(achievement: AchievementModel) {
     await Csrf.getCookie()
     return Api.post(`/achievement`, achievement)
+  },
+  async getMaxPoints() {
+    await Csrf.getCookie()
+    return Api.get(`/GetMaximumPoints`)
   }
 }
